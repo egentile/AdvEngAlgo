@@ -10,11 +10,12 @@
 #include <time.h>
 #include <stack>
 #include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
 #include "d_except.h"
-#include "d_matrix.h"
+//#include "d_matrix.h"
 //#include "graph.h"
 #include "knapsack.h"
 
@@ -42,6 +43,28 @@ int main()
 
    try
    {
+
+	   // Example of how to compute runtimes in C++
+
+#include <time.h>
+#include <iostream>
+	   using namespace std;
+
+
+
+		clock_t startTime, endTime;
+
+		int x = 0;
+		startTime = clock();
+
+		cout << endl << endl << startTime << endl;
+		cout << clock() << endl;
+
+		int diff = clock() - startTime;
+
+		cout << (float)diff / CLOCKS_PER_SEC << endl;
+	   
+
       cout << "Reading knapsack instance" << endl;
       knapsack k(fin);
 
@@ -49,6 +72,8 @@ int main()
 
       //cout << endl << "Best solution" << endl;
       //k.printSolution();
+
+	  system("pause");
 
    }
 

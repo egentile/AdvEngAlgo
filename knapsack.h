@@ -226,33 +226,19 @@ void knapsack::exhaustiveKnapsack(int t)
     {
       index.push_back(i);
     }
-    // gives vector of 0 through numObjects-1
-
-  //  cout << "Every combo: " << endl;
 
     for (int s = 1; s < (1 << numberObjects); s++)
     {
-      //acout << "entered for loop" << endl;
         totalCost = 0;
         totalValue = 0;
-        //cout << "{ " ;
 
         for (int e = 0; e < numberObjects; e++)
         {
             if(s & (1 << e))
             {
               comboSelected.push_back(index[e]);
-              // puts every
-            //  cout << " " << index[e];
             }
         }
-
-        // cout << "current combo: " << "{ ";
-        // for (int x = 0; x < comboSelected.size(); x++)
-        // {
-        //   cout << comboSelected[x];
-        // }
-        // cout << " }" << endl;
 
         // calculate total cost from current combo
         for(int i = 0; i < comboSelected.size(); i++)
@@ -265,10 +251,6 @@ void knapsack::exhaustiveKnapsack(int t)
         {
           totalValue = totalValue + value[comboSelected[i]];
         }
-
-        //cout << "current total cost" << totalCost << endl;
-
-        //cout << "curretn total value " << totalValue << endl << endl;
 
         // if total value is bigger than previous total value
         if(totalValue > maxValue && totalCost <= costLimit)
@@ -295,7 +277,6 @@ void knapsack::exhaustiveKnapsack(int t)
             topCost = totalCost;
 
         }
-        //  cout << " }" << endl;
 
       // reset comboselected vector
       comboSelected.resize(0);
