@@ -179,12 +179,13 @@ bool validCheck(Graph &g)
 		// Get a pair containing iterators pointing to the beginning and end of the
 		// list of nodes adjacent to node v
 		pair<Graph::adjacency_iterator, Graph::adjacency_iterator>
-			vItrRange2 = adjacent_vertices(vItr[*vItr], g);
-
+			vItrRange2 = adjacent_vertices(g[*vItr].pred, g);
+		cout << "I'm here";
 		// Loop over adjacent nodes in the graph
 		for (Graph::adjacency_iterator vItr2 = vItrRange2.first; vItr2 != vItrRange2.second; ++vItr2) {
-			if (g[vItr[*vItr]].weight == g[vItr2[*vItr]].weight) {
+			if (g[*vItr].weight == g[*vItr].weight) {
 				cons++;
+				cout << "\n" << cons << "\n";
 			}
 		}
 	}
