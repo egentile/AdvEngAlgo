@@ -63,7 +63,7 @@ int main()
 		int diff = clock() - startTime;
 
 		cout << (float)diff / CLOCKS_PER_SEC << endl;
-	   
+
 
       cout << "Reading knapsack instance" << endl;
       knapsack k(fin);
@@ -73,7 +73,7 @@ int main()
       //cout << endl << "Best solution" << endl;
       //k.printSolution();
 
-	  system("pause");
+	  //system("pause");
 
    }
 
