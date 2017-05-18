@@ -90,7 +90,7 @@ int main()
 		cout << "Num edges: " << num_edges(g) << endl;
 		cout << endl;
 
-		exhaustiveColoring(g, numColors, 100);
+		exhaustiveColoring(g, numColors, 600);
 	}
 
 	catch (int e)
@@ -119,6 +119,10 @@ void initializeGraph(Graph &g, ifstream &fin)
 		fin >> j >> k;
 		add_edge(j, k, g);  // Assumes vertex list is type vecS
 	}
+
+	minConflicts = num_edges(g);
+	//set weights to -1
+	setNodeWeights(g, -1);
 }
 
 void setNodeWeights(Graph &g, int w)
@@ -179,16 +183,19 @@ bool validCheck(Graph &g)
 		// Get a pair containing iterators pointing to the beginning and end of the
 		// list of nodes adjacent to node v
 		pair<Graph::adjacency_iterator, Graph::adjacency_iterator>
-			vItrRange2 = adjacent_vertices(g[*vItr].pred, g);
-		cout << "I'm here";
+			vItrRange2 = adjacent_vertices(*vItr, g);
+
 		// Loop over adjacent nodes in the graph
 		for (Graph::adjacency_iterator vItr2 = vItrRange2.first; vItr2 != vItrRange2.second; ++vItr2) {
-			if (g[*vItr].weight == g[*vItr].weight) {
-				cons++;
-				cout << "\n" << cons << "\n";
+			cout << g[*vItr2].weight << "\n";
+			cout << g[*vItr].weight << "\n";
+				if (g[*vItr2].weight == g[*vItr].weight) {
+					cons++;
+					//cout << "\n" << cons << "\n";
+				}
 			}
 		}
-	}
+
 
 	if (cons < minConflicts)
 	{
