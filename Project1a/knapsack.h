@@ -12,6 +12,7 @@ class knapsack
       int getValue() const;
       int getNumObjects() const;
       int getCostLimit() const;
+      int getNumSelected();
       void printSolution();
       void select(int);
       void unSelect(int);
@@ -128,6 +129,22 @@ int knapsack::getValue() const
    return totalValue;
 }
 
+// returns number of currently selected objects
+int knapsack::getNumSelected()
+{
+  int count = 0;
+
+  for(int i = 0; i < numObjects; i++)
+  {
+    if (isSelected(selected[i]))
+    {
+      count++;
+    }
+  }
+
+  return count;
+}
+
 ostream &operator<<(ostream &ostr, const knapsack &k)
 // Print all information about the knapsack.
 {
@@ -157,6 +174,22 @@ ostream &operator<<(ostream &ostr, const knapsack &k)
 void knapsack::printSolution()
 // Prints out the solution.
 {
+  // unselects all
+  for( int k = 0; k < numObjects; k++)
+  {
+    unSelect(k);
+  }
+
+  cout << "unselected all" << endl;
+
+  // cout << "top selected size: " << topSelected.size() << endl;
+  // // reselects topSelected
+  // for( int m = 0; m < topSelected.size(); m++)
+  // {
+  //   select(topSelected[m]);
+  //   cout << "selecting: " << topSelected[m] << endl;
+  // }
+
    cout << "------------------------------------------------" << endl;
 
    cout << "Total value: " << getValue() << endl;
@@ -227,59 +260,90 @@ void knapsack::exhaustiveKnapsack(int t)
       index.push_back(i);
     }
 
+    // iterator for each combo (excepting unselecting all objects)
     for (int s = 1; s < (1 << numberObjects); s++)
     {
         totalCost = 0;
         totalValue = 0;
 
+        // generates each of the combos
         for (int e = 0; e < numberObjects; e++)
         {
             if(s & (1 << e))
             {
-              comboSelected.push_back(index[e]);
+              // comboSelected.push_back(index[e]);
+              select(e);
             }
         }
 
-        // calculate total cost from current combo
-        for(int i = 0; i < comboSelected.size(); i++)
-        {
-          totalCost = totalCost + cost[comboSelected[i]];
-        }
+        // // calculate total cost from current combo
+        // for(int i = 0; i < comboSelected.size(); i++)
+        // {
+        //   totalCost = totalCost + cost[comboSelected[i]];
+        // }
 
-        // calculate total value from current combo
-        for(int i = 0; i < comboSelected.size(); i++)
-        {
-          totalValue = totalValue + value[comboSelected[i]];
-        }
+        // gets total cost of all selected objects
+        // totalCost = getCost();
+
+        // // calculate total value from current combo
+        // for(int i = 0; i < comboSelected.size(); i++)
+        // {
+        //   totalValue = totalValue + value[comboSelected[i]];
+        // }
+
+        // gets total value of all selected objects
+        // totalValue = getValue();
 
         // if total value is bigger than previous total value
-        if(totalValue > maxValue && totalCost <= costLimit)
+        if(getValue() > maxValue && getCost() <= costLimit)
         {
-            cout << "entered new top value" << endl;
-            cout << "current total cost" << totalCost << endl;
+             cout << "entering new top value" << endl;
+             cout << "totalValue == " << totalValue << " > " << "maxValue ==" << maxValue << endl;
+             cout << "totalCost == " << totalCost << " <= " << "costLimit == " << costLimit;
+             cout << "current combo" << endl;
 
-            cout << "curretn total value " << totalValue << endl << endl;
+             for(int y = 0; y < topSelected.size(); y++)
+             {
+               cout << topSelected[y] << "    " << value[topSelected[y]] << "    " << cost[topSelected[y]] << endl;
+             }
+
+            // cout << "current total cost" << totalCost << endl;
+
+            // cout << "curretn total value " << totalValue << endl << endl;
 
             topSelected.resize(0);
 
 
-            cout << "current combo: " << "{ ";
+            // cout << "current combo: " << "{ ";
 
-            for (int x = 0; x < comboSelected.size(); x++)
+            for (int x = 0; x < numberObjects; x++)
             {
-              cout << comboSelected[x];
-              topSelected.push_back(comboSelected[x]);
+              // // cout << comboSelected[x];
+              if (isSelected(selected[x]))
+              {
+                topSelected.push_back(x);
+              }
+
             }
-            cout << " }" << endl;
+
+            cout << "new topSelected size == " << topSelected.size() << endl;
+
+            // cout << " }" << endl;
 
             maxValue = totalValue;
             topCost = totalCost;
 
         }
 
-      // reset comboselected vector
-      comboSelected.resize(0);
+      // // reset comboselected vector
+      // comboSelected.resize(0);
+
+      for (int z = 0; z < numberObjects; z++)
+      {
+        unSelect(selected[z]);
       }
+    }
+
 
 
       cout << endl << endl;
@@ -293,8 +357,9 @@ void knapsack::exhaustiveKnapsack(int t)
 
       for(int y = 0; y < topSelected.size(); y++)
       {
-
         cout << topSelected[y] << "    " << value[topSelected[y]] << "    " << cost[topSelected[y]] << endl;
       }
+
+
 
 }

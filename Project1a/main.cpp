@@ -44,17 +44,17 @@ int main()
    try
    {
 
-		clock_t startTime, endTime;
-
-		int x = 0;
-		startTime = clock();
-
-		cout << endl << endl << startTime << endl;
-		cout << clock() << endl;
-
-		int diff = clock() - startTime;
-
-		cout << (float)diff / CLOCKS_PER_SEC << endl;
+		// clock_t startTime, endTime;
+    //
+		// int x = 0;
+		// startTime = clock();
+    //
+		// cout << endl << endl << startTime << endl;
+		// cout << clock() << endl;
+    //
+		// int diff = clock() - startTime;
+    //
+		// cout << (float)diff / CLOCKS_PER_SEC << endl;
 
 
       cout << "Reading knapsack instance" << endl;
@@ -63,7 +63,7 @@ int main()
       k.exhaustiveKnapsack(600);
 
       cout << endl << "Best solution" << endl;
-      //k.printSolution();
+      k.printSolution();
 
 	  //system("pause");
 
