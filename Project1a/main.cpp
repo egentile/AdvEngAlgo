@@ -63,7 +63,7 @@ int main()
       k.exhaustiveKnapsack(600);
 
       cout << endl << "Best solution" << endl;
-      k.printSolution();
+      //k.printSolution();
 
 	  //system("pause");
 
