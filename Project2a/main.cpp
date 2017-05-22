@@ -11,6 +11,7 @@
 #include <stack>
 #include <stdlib.h>
 #include <time.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -60,10 +61,12 @@ int main()
       cout << "Reading knapsack instance" << endl;
       knapsack k(fin);
 
-      k.exhaustiveKnapsack(600);
+      //k.exhaustiveKnapsack(600);
+
+      k.greedyAlgorithm(600);
 
       cout << endl << "Best solution" << endl;
-      //k.printSolution();
+      k.printSolution();
 
 	  //system("pause");
 
