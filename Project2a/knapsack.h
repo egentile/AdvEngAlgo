@@ -18,7 +18,7 @@ class knapsack
       void unSelect(int);
       bool isSelected(int) const;
       //void exhaustiveKnapsack(int t);
-      void greedyAlgorithm(int t);
+      void greedyAlgorithm(int startTime, int t);
       int findMaxIndex();
 
    private:
@@ -319,7 +319,7 @@ bool knapsack::isSelected(int i) const
 //           topSelected.resize(0);
 //           //topSelected is a bool vector
 //
-//           for (int x = 0; x < numberObjects; x++)
+//           for (int x = 0; x < nu mberObjects; x++)
 //           {
 //             // // cout << comboSelected[x];
 //             if (isSelected(x))
@@ -430,9 +430,29 @@ int knapsack::findMaxIndex()
 
 }
 
-void knapsack::greedyAlgorithm(int t)
+bool knapsack::checktime(int t)
+{
+  double differenceCLK = clock() - startTime;
+
+  double differenceSecs = (float)diffCLK / CLOCKS_PER_SEC;
+
+  if (differenceSecs >= 600)
+  {
+    return false;
+  }
+
+  else
+  {
+    return true;s
+  }
+
+}
+
+void knapsack::greedyAlgorithm(int startTime, int t)
 {
   double ratio;
+
+
 
   // creates valuePerCost vector
   for (int i = 0; i < getNumObjects(); i++)
@@ -441,25 +461,27 @@ void knapsack::greedyAlgorithm(int t)
     valuePerCost.push_back(ratio);
   }
 
-  while (true)
+  while (checkTime(startTime, 600))
   {
-    int maxIndex = findMaxIndex();
-    cout << "max index is: " << maxIndex << endl;
 
-    cout << "curr cost == " << getCost() << " compare to cost limit: " << costLimit << endl;
+    int maxIndex = findMaxIndex();
+    // cout << "max index is: " << maxIndex << endl;
+    //
+    // cout << "curr cost == " << getCost() << " compare to cost limit: " << costLimit << endl;
 
     if (getCost() + cost[maxIndex] <= costLimit )
     {
       select(maxIndex);
     }
 
-    else
-    {
-      break;
-    }
+    // else
+    // {
+    //   break;
+    // }
 
     valuePerCost[maxIndex] = 0;
     cout << "current totalValue is: " << getValue() << endl;
+
 
   }
 
