@@ -48,9 +48,9 @@ int main()
 		clock_t startTime, endTime;
 
 	  int x = 0;
-		int startTime = clock();
+		int start = clock();
 
-		 cout << endl << endl << startTime << endl;
+		// cout << endl << endl << start << endl;
 		// cout << clock() << endl;
     //
 		// int diff = clock() - startTime;
@@ -63,7 +63,7 @@ int main()
 
       //k.exhaustiveKnapsack(600);
 
-      k.greedyAlgorithm(startTime, 600);
+      k.greedyAlgorithm(start, 600);
 
       cout << endl << "Best solution" << endl;
       k.printSolution();

@@ -20,6 +20,7 @@ class knapsack
       //void exhaustiveKnapsack(int t);
       void greedyAlgorithm(int startTime, int t);
       int findMaxIndex();
+      bool checkTime(int start, int t);
 
    private:
       int numObjects;
@@ -129,7 +130,7 @@ int knapsack::getCost() const
   {
     if(isSelected(i))
     {
-      collectiveCost = collectiveCost + getValue(i);
+      collectiveCost = collectiveCost + getCost(i);
     }
   }
    return collectiveCost;
@@ -223,6 +224,7 @@ void knapsack::printSolution()
 
    cout << "------------------------------------------------" << endl;
 
+   cout << "Cost Limit: " << costLimit << endl;
    cout << "Total value: " << getValue() << endl;
    cout << "Total cost: " << getCost() << endl << endl;
 
@@ -430,11 +432,11 @@ int knapsack::findMaxIndex()
 
 }
 
-bool knapsack::checktime(int t)
+bool knapsack::checkTime(int start, int t)
 {
-  double differenceCLK = clock() - startTime;
+  double differenceCLK = clock() - start;
 
-  double differenceSecs = (float)diffCLK / CLOCKS_PER_SEC;
+  double differenceSecs = (float)differenceCLK / CLOCKS_PER_SEC;
 
   if (differenceSecs >= 600)
   {
@@ -443,12 +445,12 @@ bool knapsack::checktime(int t)
 
   else
   {
-    return true;s
+    return true;
   }
 
 }
 
-void knapsack::greedyAlgorithm(int startTime, int t)
+void knapsack::greedyAlgorithm(int start, int t)
 {
   double ratio;
 
@@ -457,30 +459,29 @@ void knapsack::greedyAlgorithm(int startTime, int t)
   // creates valuePerCost vector
   for (int i = 0; i < getNumObjects(); i++)
   {
-    ratio = getValue(i)/getCost(i);
+    ratio = getValue(i)/(double) getCost(i);
     valuePerCost.push_back(ratio);
+    // cout << i << " || "  << getValue(i) << " / "  << getCost(i) << " = "<< ratio << endl;
   }
 
-  while (checkTime(startTime, 600))
+
+
+  for (int j = 0; j < getNumObjects(); j++)
   {
 
     int maxIndex = findMaxIndex();
-    // cout << "max index is: " << maxIndex << endl;
-    //
-    // cout << "curr cost == " << getCost() << " compare to cost limit: " << costLimit << endl;
+    // cout << "maxindex: " << maxIndex << endl;
+    // cout << "ratio: " << valuePerCost[maxIndex] << endl;
+
 
     if (getCost() + cost[maxIndex] <= costLimit )
     {
       select(maxIndex);
     }
 
-    // else
-    // {
-    //   break;
-    // }
-
     valuePerCost[maxIndex] = 0;
-    cout << "current totalValue is: " << getValue() << endl;
+    // cout << "current totalValue is: " << getValue() << endl;
+    // cout << "current totalCost is: " << getCost() << endl;
 
 
   }
