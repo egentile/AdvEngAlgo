@@ -1,4 +1,9 @@
-﻿This second project entailed solving knapsack and graph coloring problems using greedy algorithms.
+﻿Erik Gentile
+Advanced Engineering Algorithms
+Project 2
+
+
+This second project entailed solving knapsack and graph coloring problems using greedy algorithms.
 
  For knapsack, the greedy algorithm consisted of generating value to cost ratios for each of the objects and then adding selecting them in decreasing order of their value to cost ratios. Because of how this algorithm runs (it only iterates through the objects once so it has a complexity of n), it executes far faster than the brute force approach.
 
